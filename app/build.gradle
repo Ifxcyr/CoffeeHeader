@@ -1,0 +1,125 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+def siteUrl = 'https://github.com/wuyr/CoffeeHeader' //需要修改
+def gitUrl = 'https://github.com/Ifxcyr/CoffeeHeader.git' //需要修改
+
+version = "1.0.0"
+group = "com.wuyr"
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+dependencies {
+    //CoffeeDrawable
+    api 'com.wuyr:coffeedrawable:1.0.0'
+    //下拉刷新
+    compileOnly 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11'
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    pkg {
+        repo = 'CoffeeHeader' //需要修改
+        name = 'CoffeeHeader' //需要修改
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ['Apache-2.0']
+        userOrg = 'wuyr'
+        publish = true
+
+        version {
+            name = '1.0.0'
+            desc = '一个搅拌咖啡效果的下拉刷新。' //需要修改
+            released = new Date()
+            vcsTag = '1.0.0'
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+    configurations = ['archives']
+}
+
+install {
+    repositories.mavenInstaller {
+
+        pom {
+            project {
+                packaging 'aar'
+
+                name '陈小缘'
+                description '一个搅拌咖啡效果的下拉刷新。' //需要修改
+                url siteUrl
+
+                licenses {
+                    license {
+                        name 'Apache-2.0'
+                        url 'https://raw.githubusercontent.com/Ifxcyr/CoffeeHeader/master/LICENSE' //需要修改
+                    }
+                }
+                developers {
+                    developer {
+                        id 'ifxcyr'
+                        name '陈小缘'
+                        email 'ifxcyr@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+                dependencies{
+                    dependency{
+                        groupId 'com.wuyr'
+                        artifactId 'coffeedrawable'
+                        version '1.0.0'
+                        scope 'compile'
+                    }
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+javadoc {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/8/docs/api"
+    }
+}
