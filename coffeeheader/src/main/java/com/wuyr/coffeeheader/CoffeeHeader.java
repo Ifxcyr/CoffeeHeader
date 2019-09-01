@@ -1,10 +1,10 @@
 package com.wuyr.coffeeheader;
 
-import android.annotation.NonNull;
-import android.annotation.Nullable;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -13,12 +13,14 @@ import com.scwang.smartrefresh.layout.api.RefreshKernel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.wuyr.coffeedrawable.CoffeeDrawable;
 
 /**
  * @author wuyr
  * @github https://github.com/wuyr/CoffeeHeader
  * @since 2019-07-02 下午2:32
  */
+@SuppressWarnings({"unused"})
 public class CoffeeHeader extends View implements RefreshHeader {
 
     private CoffeeDrawable mDrawable;
@@ -60,8 +62,8 @@ public class CoffeeHeader extends View implements RefreshHeader {
 
     @Override
     public void onInitialized(@NonNull RefreshKernel kernel, int height, int maxDragHeight) {
-        mDrawable = CoffeeDrawable.create(this, getMeasuredWidth(), getMeasuredHeight(),
-                (int) (cupRadius > 0 ? cupRadius : getMeasuredWidth() / 15));
+        mDrawable = CoffeeDrawable.create(getMeasuredWidth(), getMeasuredHeight(),
+                cupRadius > 0 ? cupRadius : getMeasuredWidth() / 15);
         if (coffeeColor != 0) {
             mDrawable.setCoffeeColor(coffeeColor);
         }
@@ -105,7 +107,119 @@ public class CoffeeHeader extends View implements RefreshHeader {
             mDrawable.setProgress(percent <= .5F ? 0 : (percent - .5F) * 2);
         }
     }
+    
+    /**
+     * 获取杯身颜色
+     */
+    public int getCupBodyColor() {
+        return mDrawable.getCupBodyColor();
+    }
 
+    /**
+     * 设置杯身颜色
+     */
+    public void setCupBodyColor(int color) {
+        mDrawable.setCupBodyColor(color);
+    }
+
+    /**
+     * 获取杯底颜色
+     */
+    public int getCupBottomColor() {
+        return mDrawable.getCupBottomColor();
+    }
+
+    /**
+     * 设置杯底颜色
+     */
+    public void setCupBottomColor(int color) {
+        mDrawable.setCupBottomColor(color);
+    }
+
+    /**
+     * 获取咖啡颜色
+     */
+    public int getCoffeeColor() {
+        return mDrawable.getCoffeeColor();
+    }
+
+    /**
+     * 设置咖啡颜色
+     */
+    public void setCoffeeColor(int color) {
+        mDrawable.setCoffeeColor(color);
+    }
+
+    /**
+     * 获取手颜色
+     */
+    public int getHandColor() {
+        return mDrawable.getHandColor();
+    }
+
+    /**
+     * 设置手颜色
+     */
+    public void setHandColor(int color) {
+        mDrawable.setHandColor(color);
+    }
+
+    /**
+     * 获取搅拌棒颜色
+     */
+    public int getStickColor() {
+        return mDrawable.getStickColor();
+    }
+
+    /**
+     * 设置搅拌棒颜色
+     */
+    public void setStickColor(int color) {
+        mDrawable.setStickColor(color);
+    }
+
+    /**
+     * 获取搅拌一圈的时长
+     */
+    public long getStirringDuration() {
+        return mDrawable.getStirringDuration();
+    }
+
+    /**
+     * 设置搅拌一圈的时长
+     */
+    public void setStirringDuration(long duration) {
+        mDrawable.setStirringDuration(duration);
+    }
+
+    /**
+     * 获取隐藏手臂的时长
+     */
+    public long getHideDuration() {
+        return mDrawable.getHideDuration();
+    }
+
+    /**
+     * 设置隐藏手臂的时长
+     */
+    public void setHideDuration(long duration) {
+        mDrawable.setHideDuration(duration);
+    }
+
+    /**
+     * 获取咖啡边缘渐变动画时长
+     */
+    public long getEdgeFadeDuration() {
+        return mDrawable.getEdgeFadeDuration();
+    }
+
+    /**
+     * 设置咖啡边缘渐变动画时长
+     */
+    public void setEdgeFadeDuration(long duration) {
+        mDrawable.setEdgeFadeDuration(duration);
+    }
+    
     @NonNull
     @Override
     public SpinnerStyle getSpinnerStyle() {
