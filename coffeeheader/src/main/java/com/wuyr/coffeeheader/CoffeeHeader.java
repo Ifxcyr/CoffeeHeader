@@ -107,6 +107,26 @@ public class CoffeeHeader extends View implements RefreshHeader {
             mDrawable.setProgress(percent <= .5F ? 0 : (percent - .5F) * 2);
         }
     }
+
+    /**
+     * 初始化尺寸
+     *
+     * @param cupRadius 杯子半径
+     */
+    public void updateSize(int cupRadius){
+        mDrawable.updateSize(getMeasuredWidth(), getMeasuredHeight(), cupRadius);
+    }
+
+    /**
+     * 更新尺寸
+     *
+     * @param width     Drawable宽度
+     * @param height    Drawable高度
+     * @param cupRadius 杯子半径
+     */
+    public void updateSize(int width, int height, int cupRadius){
+        mDrawable.updateSize(width, height, cupRadius);
+    }
     
     /**
      * 获取杯身颜色
