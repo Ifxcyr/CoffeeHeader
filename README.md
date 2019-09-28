@@ -1,5 +1,5 @@
 ##  CoffeeHeader，一个搅拌咖啡效果的下拉刷新Header。
-### 博客详情： 敬请期待。。。
+### 博客详情： <https://blog.csdn.net/u011387817/article/details/100530256>
 
 ### 使用方式:
 #### 添加依赖：(需配合[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)使用)
